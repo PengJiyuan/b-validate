@@ -25,5 +25,8 @@
   "devDependencies": {
     "rollup": "^1.6.0",
     "rollup-plugin-buble": "^0.19.6"
+  },
+  "dependencies": {
+    "lodash.isequal": "^4.5.0"
   }
 }

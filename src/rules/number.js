@@ -9,7 +9,7 @@ class NumberValidater extends Base {
     });
     this.validate(
       isNumber(this.obj),
-      `Expect number type but got ${typeof this.obj}`
+      `Expect number type but got ${this.obj}`
     );
   }
 
@@ -41,14 +41,14 @@ class NumberValidater extends Base {
     );
   }
 
-  positive(num) {
+  get positive() {
     return this.validate(
       this.obj > 0,
       `Expect number to be positive, but got ${this.obj}`
     );
   }
 
-  negative(num) {
+  get negative() {
     return this.validate(
       this.obj < 0,
       `Expect number to be negative, but got ${this.obj}`

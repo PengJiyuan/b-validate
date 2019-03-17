@@ -14,30 +14,36 @@ class Base {
     this.error = null;
   }
 
+  get not() {
+    this._not = !this._not;
+    return this;
+  }
+
+  get isRequired() {
+    if (isEmptyValue(this.obj)) {
+      this.error = {
+        value: this.obj,
+        type: this.type,
+        message: `${this._not ? '[NOT MODE]:': ''}${this.type} is required`
+      };
+    }
+    return this;
+  }
+
   addError(message) {
     if (!this.error) {
       this.error = {
         value: this.obj,
         type: this.type,
-        message
+        message: `${this._not ? '[NOT MODE]:': ''}${message}`
       };
     }
   }
 
   validate(expression, errorMessage) {
-    if (!expression) {
+    const _expression = this._not ? expression : !expression;
+    if (_expression) {
       this.addError(errorMessage);
-    }
-    return this;
-  }
-
-  isRequired() {
-    if (isEmptyValue(this.obj)) {
-      this.error = {
-        value: this.obj,
-        type: this.type,
-        message: `${this.type} is required`
-      };
     }
     return this;
   }

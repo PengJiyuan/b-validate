@@ -2,7 +2,7 @@ const bv = require('../dist/b-validate');
 
 bv('')
   .string
-  .isRequired()
+  .isRequired
   .minLength(2)
   .maxLength(15)
   .match(/peng/)
@@ -12,9 +12,23 @@ bv('')
 
 bv(12)
   .number
-  .isRequired()
+  .isRequired
+  .positive
   .range(2, 20)
-  .positive()
   .collect((error) => {
     console.log(error);
+  });
+
+bv(['a', 'b'])
+  .array
+  .deepEqual(['a', 'b'])
+  .collect((error) => {
+    console.log(error);
+  });
+
+bv({a: 1, b: 2})
+  .object
+  .hasKeys(['a', 'c'])
+  .collect((err) => {
+    console.log(err);
   });
