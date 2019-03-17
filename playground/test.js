@@ -34,3 +34,9 @@ bv({a: 1, b: 2})
   });
 
 console.log(bv(true).boolean.true.end);
+
+console.log(bv('pengjiyuan@bytedance.com').type.email.end);
+
+console.log(bv('https://www.bytedance.com').type.url.end);
+
+console.log(bv('127.0.0.13.3').type.ip.end);

@@ -1,4 +1,3 @@
-import isEqual from 'lodash.isequal';
 import Base from './base';
 import { isBoolean } from '../is';
 

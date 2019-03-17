@@ -3,6 +3,7 @@ import NumberValidater from './rules/number';
 import ArrayValidater from './rules/array';
 import ObjectValidater from './rules/object';
 import BooleanValidater from './rules/boolean';
+import TypeValidater from './rules/type';
 
 function validate(obj, options) {
   return {
@@ -11,6 +12,7 @@ function validate(obj, options) {
     array: new ArrayValidater(obj, options),
     object: new ObjectValidater(obj, options),
     boolean: new BooleanValidater(obj, options),
+    type: new TypeValidater(obj, options),
   };
 }
 
