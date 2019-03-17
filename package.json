@@ -2,9 +2,10 @@
   "name": "b-validate",
   "version": "0.0.1",
   "description": "Javascript type validate",
-  "main": "index.js",
+  "main": "./dist/b-validate.js",
   "scripts": {
-    "dev": "rollup -c -w",
+    "dev-cjs": "rollup -c -f cjs -w",
+    "dev-es": "rollup -c -w",
     "build": "rollup -c"
   },
   "repository": {
