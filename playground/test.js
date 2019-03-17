@@ -101,3 +101,5 @@ new Schema({
 }, (errors) => {
   console.log(errors);
 });
+
+console.log( bv('b-validate').string.isRequired.match(/validater/).end);
