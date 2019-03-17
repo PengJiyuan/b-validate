@@ -41,14 +41,14 @@ class StringValidater extends Base {
     );
   }
 
-  uppercase() {
+  get uppercase() {
     return this.validate(
       this.obj.toUpperCase() === this.obj,
       `Expect ${this.obj} to be uppercased`
     );
   }
 
-  lowercase() {
+  get lowercase() {
     return this.validate(
       this.obj.toLowerCase() === this.obj,
       `Expect ${this.obj} to be lowercased`
