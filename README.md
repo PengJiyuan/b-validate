@@ -95,7 +95,7 @@ schema.validate({
 
 ## Api
 
-### string
+### String
 
 #### .maxLength(length: number)
 
@@ -121,11 +121,13 @@ Validate whether string is uppercase.
 
 Validate whether string is lowercase.
 
+#### Demo
+
 ```js
-bv('vvvv').string.isRequired.minLength(2).maxLength(10).uppercase.end;
+bv('vvvv').string.isRequired.minLength(2).maxLength(10).lowercase.end; // pass
 ```
 
-### number
+### Number
 
 #### .min(num: number)
 
@@ -151,10 +153,82 @@ Is it a positive number?
 
 Is it a negative number?
 
+#### Demo
+
 ```js
-bv(123).number.min(2).max(250).positive.end;
+bv(123).number.min(2).max(250).positive.end; // pass
 ```
 
-### array
+### Array
 
+#### .length(length: number)
 
+Validate array's length
+
+#### .includes(arrays: any[])
+
+Whether array includes some array.
+
+#### .deepEqual(other: any[])
+
+Deep equal to other array
+
+#### Demo
+
+```js
+bv([1, 2, 3]).array.length(3).includes([1, 2]).deepEqual([1, 2, 3]).end; // pass
+```
+
+### Object
+
+#### .hasKeys(keys: string[])
+
+Object has some keys?
+
+#### .deepEqual(obj: object)
+
+Deep equal to other object.
+
+#### .empty
+
+Empty object.
+
+#### Demo
+
+```js
+bv({a: 1, b: 2}).object.hasKeys(['a', 'b']).deepEqual({a: 1, b: 2}).not.empty.end; // pass
+```
+
+### Type
+
+#### .email
+
+```js
+bv('abc@qq.com').type.email.end; // pass
+```
+
+#### .url
+
+```js
+bv('https://baidu.com').type.url.end; // pass
+```
+
+#### .ip
+
+```js
+bv('127.0.0.1').type.ip.end; // pass
+```
+
+### Custom validator
+
+```js
+const error = bv('xxxxxx').custom.create((value, callback) => {
+  if (value !== 'x') {
+    callback(`Expect x but got ${value}`);
+  }
+}); // { value: 'xxxxxx', type: 'string', message: 'Expect x but got xxxxxx' }
+```
+
+## LICENSE
+
+[MIT](./LICENSE) © [PengJiyuan](https://github.com/PengJiyuan)
