@@ -6,6 +6,7 @@ const config = {
     file: './dist/b-validate.js',
     format: 'es'
   },
+  external: ['lodash.isequal'],
   plugins: [
     buble({objectAssign: true})
   ]

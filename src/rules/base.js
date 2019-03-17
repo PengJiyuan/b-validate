@@ -30,6 +30,10 @@ class Base {
     return this;
   }
 
+  get end() {
+    return this.error;
+  }
+
   addError(message) {
     if (!this.error) {
       this.error = {

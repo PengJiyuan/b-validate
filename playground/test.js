@@ -32,3 +32,5 @@ bv({a: 1, b: 2})
   .collect((err) => {
     console.log(err);
   });
+
+console.log(bv(true).boolean.true.end);

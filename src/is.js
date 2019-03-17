@@ -16,6 +16,10 @@ export function isNumber(obj) {
   return opt.call(obj) === '[object Number]' && obj === obj;
 }
 
+export function isBoolean(obj) {
+  return opt.call(obj) === '[object Boolean]';
+}
+
 export function isEmptyValue(obj) {
   return obj === undefined || obj === null || obj === '';
 }
