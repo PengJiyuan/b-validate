@@ -40,3 +40,14 @@ console.log(bv('pengjiyuan@bytedance.com').type.email.end);
 console.log(bv('https://www.bytedance.com').type.url.end);
 
 console.log(bv('127.0.0.13.3').type.ip.end);
+
+bv(123)
+  .custom
+  .create((value, callback) => {
+    if (value < 250) {
+      callback('Must > 250');
+    }
+  })
+  .collect((err) => {
+    console.log(err);
+  });

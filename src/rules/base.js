@@ -35,7 +35,7 @@ class Base {
   }
 
   addError(message) {
-    if (!this.error) {
+    if (!this.error && message) {
       this.error = {
         value: this.obj,
         type: this.type,
