@@ -93,31 +93,31 @@ schema.validate({
 });
 ```
 
-### Api
+## Api
 
-#### string
+### string
 
-##### .maxLength(length: number)
+#### .maxLength(length: number)
 
 Validate string's max length.
 
-##### .minLength(length: number)
+#### .minLength(length: number)
 
 Validate string's min length.
 
-##### .length(length: number)
+#### .length(length: number)
 
 Validate string's length
 
-##### .match(pattern: regexPattern)
+#### .match(pattern: regexPattern)
 
 Validate whether string is match regex pattern.
 
-##### .uppercase
+#### .uppercase
 
 Validate whether string is uppercase.
 
-##### .lowercase
+#### .lowercase
 
 Validate whether string is lowercase.
 
@@ -125,29 +125,29 @@ Validate whether string is lowercase.
 bv('vvvv').string.isRequired.minLength(2).maxLength(10).uppercase.end;
 ```
 
-#### number
+### number
 
-##### .min(num: number)
+#### .min(num: number)
 
 Minimum value.
 
-##### .max(num: number)
+#### .max(num: number)
 
 Maximum value.
 
-##### .equal(num: number)
+#### .equal(num: number)
 
 Equal to number.
 
-##### .range(min: number, max: number)
+#### .range(min: number, max: number)
 
 In range min ~ max.
 
-##### .positive
+#### .positive
 
 Is it a positive number?
 
-##### .negative
+#### .negative
 
 Is it a negative number?
 
@@ -155,6 +155,6 @@ Is it a negative number?
 bv(123).number.min(2).max(250).positive.end;
 ```
 
-#### array
+### array
 
 
