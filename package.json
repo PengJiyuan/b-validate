@@ -2,11 +2,13 @@
   "name": "b-validate",
   "version": "0.0.1",
   "description": "Javascript type validate",
-  "main": "./dist/b-validate.js",
+  "module": "./dist/b-validate.es.js",
+  "main": "./dist/b-validate.cjs.js",
   "scripts": {
-    "dev-cjs": "rollup -c -f cjs -w",
+    "prepublish": "npm run build",
+    "dev-cjs": "rollup -c -f cjs -o ./dist/b-validate.cjs.js -w",
     "dev-es": "rollup -c -w",
-    "build": "rollup -c"
+    "build": "rm -rf dist/* && rollup -c -o ./dist/b-validate.es.js && rollup -c -f cjs -o ./dist/b-validate.cjs.js"
   },
   "repository": {
     "type": "git",

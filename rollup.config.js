@@ -3,7 +3,7 @@ import buble from 'rollup-plugin-buble';
 const config = {
   input: './src/index.js',
   output: {
-    file: './dist/b-validate.js',
+    file: './dist/b-validate.es.js',
     format: 'es'
   },
   external: ['lodash.isequal'],
