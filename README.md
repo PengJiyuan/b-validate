@@ -1,3 +1,8 @@
+[![Travis](https://img.shields.io/travis/PengJiyuan/b-validate.svg)](https://travis-ci.org/PengJiyuan/b-validate)
+[![npm](https://img.shields.io/npm/v/b-validate.svg)](https://www.npmjs.com/package/b-validate)
+[![npm](https://img.shields.io/npm/l/b-validate.svg)](https://www.npmjs.com/package/b-validate)
+[![codecov.io](https://codecov.io/github/PengJiyuan/b-validate/coverage.svg?branch=master)](https://codecov.io/github/PengJiyuan/b-validate?branch=master)
+
 # b-validate
 Javascript type validate.
 
