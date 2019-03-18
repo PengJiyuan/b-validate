@@ -33,7 +33,7 @@ bv(123)
 // or get error message like this:
 
 const error = bv('b-validate').string.isRequired.match(/validater/).end;
-// { value: 'b-validate', type: 'string', message: 'b-validate is not match pattern /validater/' }
+// { value: 'b-validate', type: 'string', message: '`b-validate` is not match pattern /validater/' }
 ```
 
 ### Schema
