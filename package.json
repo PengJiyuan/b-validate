@@ -1,6 +1,6 @@
 {
   "name": "b-validate",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Javascript type validate",
   "module": "./dist/b-validate.es.js",
   "main": "./dist/b-validate.cjs.js",
