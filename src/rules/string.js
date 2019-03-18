@@ -37,21 +37,21 @@ class StringValidater extends Base {
   match(pattern) {
     return this.validate(
       pattern.test(this.obj),
-      `${this.obj} is not match pattern ${pattern}`
+      `\`${this.obj}\` is not match pattern ${pattern}`
     );
   }
 
   get uppercase() {
     return this.validate(
       this.obj.toUpperCase() === this.obj,
-      `Expect ${this.obj} to be uppercased`
+      `Expect \`${this.obj}\` to be uppercased`
     );
   }
 
   get lowercase() {
     return this.validate(
       this.obj.toLowerCase() === this.obj,
-      `Expect ${this.obj} to be lowercased`
+      `Expect \`${this.obj}\` to be lowercased`
     );
   }
 }
