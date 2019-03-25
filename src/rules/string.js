@@ -14,24 +14,24 @@ class StringValidater extends Base {
   }
 
   maxLength(length) {
-    return this.validate(
+    return this.obj ? this.validate(
       this.obj.length <= length,
       `Expect max length ${length} but got ${this.obj.length}`
-    );
+    ) : this;
   }
 
   minLength(length) {
-    return this.validate(
+    return this.obj ? this.validate(
       this.obj.length >= length,
       `Expect min length ${length} but got ${this.obj.length}`
-    );
+    ) : this;
   }
 
   length(length) {
-    return this.validate(
+    return this.obj ? this.validate(
       this.obj.length === length,
       `Expect length ${length} but got ${this.obj.length}`
-    );
+    ) : this;
   }
 
   match(pattern) {
@@ -42,17 +42,17 @@ class StringValidater extends Base {
   }
 
   get uppercase() {
-    return this.validate(
+    return this.obj ? this.validate(
       this.obj.toUpperCase() === this.obj,
       `Expect \`${this.obj}\` to be uppercased`
-    );
+    ) : this;
   }
 
   get lowercase() {
-    return this.validate(
+    return this.obj ? this.validate(
       this.obj.toLowerCase() === this.obj,
       `Expect \`${this.obj}\` to be lowercased`
-    );
+    ) : this;
   }
 }
 

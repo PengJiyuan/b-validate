@@ -15,24 +15,24 @@ class ArrayValidater extends Base {
   }
 
   length(num) {
-    return this.validate(
+    return this.obj ? this.validate(
       this.obj.length === num,
       `Expect array length ${num} but got ${this.obj.length}`
-    );
+    ) : this;
   }
 
   includes(arrays) {
-    return this.validate(
+    return this.obj ? this.validate(
       arrays.every(el => this.obj.indexOf(el) !== -1),
       `${JSON.stringify(this.obj)} is not includes ${JSON.stringify(arrays)}`
-    );
+    ) : this;
   }
 
   deepEqual(other) {
-    return this.validate(
+    return this.obj ? this.validate(
       isEqual(this.obj, other),
       `${JSON.stringify(this.obj)} is not deep equal with ${JSON.stringify(other)}`
-    );
+    ) : this;
   }
 
   get empty() {

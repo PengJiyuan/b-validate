@@ -1,7 +1,7 @@
-const bv = require('../dist/b-validate').default;
-const { Schema } = require('../dist/b-validate');
+const bv = require('../dist/b-validate.cjs').default;
+const { Schema } = require('../dist/b-validate.cjs');
 
-bv('peng')
+bv()
   .string
   .isRequired
   .minLength(2)
@@ -11,7 +11,7 @@ bv('peng')
     console.log(error);
   });
 
-bv(12)
+bv()
   .number
   .isRequired
   .positive
@@ -20,15 +20,17 @@ bv(12)
     console.log(error);
   });
 
-bv(['a', 'b'])
+bv()
   .array
+  .isRequired
   .deepEqual(['a', 'b'])
   .collect((error) => {
     console.log(error);
   });
 
-bv({a: 1, b: 2})
+bv()
   .object
+  .isRequired
   .hasKeys(['a', 'b'])
   .collect((err) => {
     console.log(err);
@@ -83,6 +85,10 @@ new Schema({
     type: 'url',
     message: 'url格式不对'
   }],
+  array: [{
+    type: 'array',
+    required: true
+  }],
   custom: [{
     validator: (value, callback) => {
       if (value > 10) {
@@ -97,6 +103,7 @@ new Schema({
   email: 'pengjiyuan@bytedance.com',
   ip: '127.0.0.1',
   url: 'https://bytedance.com',
+  array: ['1', '2'],
   custom: 20
 }, (errors) => {
   console.log(errors);

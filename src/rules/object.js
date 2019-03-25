@@ -15,17 +15,17 @@ class ObjectValidater extends Base {
   }
 
   deepEqual(other) {
-    return this.validate(
+    return this.obj ? this.validate(
       isEqual(this.obj, other),
       `${JSON.stringify(this.obj)} is not deep equal with ${JSON.stringify(other)}`
-    );
+    ) : this;
   }
 
   hasKeys(keys) {
-    return this.validate(
+    return this.obj ? this.validate(
       keys.every(el => this.obj[el]),
       `${JSON.stringify(this.obj)} is not has keys ${keys}`
-    );
+    ) : this;
   }
 
   get empty() {
