@@ -1,4 +1,4 @@
-import { isObject, isString, isEmptyValue } from '../is';
+import { isObject, isString, isEmptyValue, isEmptyArray, isEmptyObject } from '../is';
 
 /**
  * @param options.trim trim string value
@@ -23,7 +23,11 @@ class Base {
   }
 
   get isRequired() {
-    if (isEmptyValue(this.obj)) {
+    if (
+      (this.type === 'string' && isEmptyValue(this.obj)) ||
+      (this.type === 'array' && isEmptyArray(this.obj)) ||
+      (this.type === 'object' && isEmptyObject(this.obj))
+    ) {
       this.error = {
         value: this.obj,
         type: this.type,

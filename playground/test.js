@@ -1,7 +1,7 @@
 const bv = require('../dist/b-validate.cjs').default;
 const { Schema } = require('../dist/b-validate.cjs');
 
-bv()
+bv('f')
   .string
   .isRequired
   .minLength(2)
@@ -20,7 +20,7 @@ bv()
     console.log(error);
   });
 
-bv()
+bv([])
   .array
   .isRequired
   .deepEqual(['a', 'b'])
@@ -28,7 +28,7 @@ bv()
     console.log(error);
   });
 
-bv()
+bv({})
   .object
   .isRequired
   .hasKeys(['a', 'b'])
