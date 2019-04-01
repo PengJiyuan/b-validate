@@ -66,7 +66,9 @@ export class Schema {
                 if (!errors) {
                   errors = {};
                 }
-                errors[key] = error;
+                if (!errors[key] || error.requiredError) {
+                  errors[key] = error;
+                }
               }
             });
           });

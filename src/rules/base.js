@@ -23,14 +23,11 @@ class Base {
   }
 
   get isRequired() {
-    if (
-      (this.type === 'string' && isEmptyValue(this.obj)) ||
-      (this.type === 'array' && isEmptyArray(this.obj)) ||
-      (this.type === 'object' && isEmptyObject(this.obj))
-    ) {
+    if (isEmptyValue(this.obj)) {
       this.error = {
         value: this.obj,
         type: this.type,
+        requiredError: true,
         message: this.message || `${this._not ? '[NOT MODE]:': ''}${this.type} is required`
       };
     }

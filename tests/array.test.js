@@ -15,6 +15,16 @@ it('array.length', () => {
   expect(bv([1, 2]).array.length(3).end.message).toBe('Expect array length 3 but got 2');
 });
 
+it('array.minLength', () => {
+  expect(bv([1, 2]).array.minLength(2).end).toBe(null);
+  expect(bv([1, 2]).array.minLength(3).end.message).toBe('Expect min array length 3 but got 2');
+});
+
+it('array.maxLength', () => {
+  expect(bv([1, 2]).array.maxLength(3).end).toBe(null);
+  expect(bv([1, 2]).array.maxLength(1).end.message).toBe('Expect max array length 1 but got 2');
+});
+
 it('array.includes', () => {
   expect(bv([1, 2, 3]).array.includes([1, 2]).end).toBe(null);
   expect(bv([1, 2, 3]).array.includes([1, 4]).end.message).toBe('[1,2,3] is not includes [1,4]');

@@ -21,6 +21,20 @@ class ArrayValidater extends Base {
     ) : this;
   }
 
+  minLength(num) {
+    return this.obj ? this.validate(
+      this.obj.length >= num,
+      `Expect min array length ${num} but got ${this.obj.length}`
+    ) : this;
+  }
+
+  maxLength(num) {
+    return this.obj ? this.validate(
+      this.obj.length <= num,
+      `Expect max array length ${num} but got ${this.obj.length}`
+    ) : this;
+  }
+
   includes(arrays) {
     return this.obj ? this.validate(
       arrays.every(el => this.obj.indexOf(el) !== -1),
