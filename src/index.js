@@ -32,7 +32,16 @@ export class Schema {
     if (!isObject(values)) {
       return;
     }
+    const promises = [];
     let errors = null;
+    function setError(key, error) {
+      if (!errors) {
+        errors = {};
+      }
+      if (!errors[key] || error.requiredError) {
+        errors[key] = error;
+      }
+    }
     if (this.schema) {
       Object.keys(this.schema).forEach((key) => {
         if (isArray(this.schema[key])) {
@@ -46,7 +55,17 @@ export class Schema {
             if (type === 'email' || type === 'url' || type === 'ip') {
               bv = new Validate(values[key], {message}).type[type];
             } else if(rule.validator) {
-              bv = new Validate(values[key], {message}).custom.create(rule.validator);
+              bv = new Validate(values[key], {message}).custom.validate(rule.validator);
+              if (Object.prototype.toString.call(bv) === '[object Array]' && bv[0].then) {
+                promises.push({
+                  function: bv[0],
+                  _this: bv[1],
+                  key
+                });
+              } else if (bv) {
+                setError(key, bv);
+              }
+              return;
             } else {
               bv = new Validate(values[key], {message})[type];
             }
@@ -63,18 +82,24 @@ export class Schema {
             });
             bv.collect((error) => {
               if (error) {
-                if (!errors) {
-                  errors = {};
-                }
-                if (!errors[key] || error.requiredError) {
-                  errors[key] = error;
-                }
+                setError(key, error);
               }
             });
           });
         }
       });
     }
-    callback && callback(errors);
+    if (promises.length > 0) {
+      Promise.all(promises.map(a => a.function)).then(() => {
+        promises.forEach((promise) => {
+          if (promise._this.error) {
+            setError(promise.key, promise._this.error);
+          }
+        });
+        callback && callback(errors);
+      });
+    } else {
+      callback && callback(errors);
+    }
   }
 }

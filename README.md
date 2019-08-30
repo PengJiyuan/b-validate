@@ -11,6 +11,7 @@ Javascript type validate.
 * chainable api
 * support custom validator
 * support schema validate
+* support async validate
 
 ## Usage
 
@@ -75,6 +76,14 @@ const schema = new Schema({
         callback('不能大于10！');
       }
     }
+  }],
+  // Async validate
+  async: [{
+    validator: async (value, callback) => {
+      if (value > 10) {
+        callback('不能大于10！');
+      }
+    }
   }]
 });
 
@@ -84,7 +93,8 @@ schema.validate({
   email: 'pengjiyuan@bytedance.com',
   ip: '127.0.0.1',
   url: 'https://bytedancecom',
-  custom: 20
+  custom: 20,
+  async: 20
 }, (errors) => {
   console.log(errors);
   /*
@@ -227,11 +237,26 @@ bv('127.0.0.1').type.ip.end; // pass
 ### Custom validator
 
 ```js
-const error = bv('xxxxxx').custom.create((value, callback) => {
+bv('xxxxxx').custom.validate((value, callback) => {
   if (value !== 'x') {
     callback(`Expect x but got ${value}`);
   }
-}); // { value: 'xxxxxx', type: 'string', message: 'Expect x but got xxxxxx' }
+}, (error) => {
+  console.log(error); // { value: 'xxxxxx', type: 'string', message: 'Expect x but got xxxxxx' }
+});
+```
+
+### Async validate
+
+```js
+bv('xxxxxx').custom.validate(async (value, callback) => {
+  const apiValue = api.getValue();
+  if (value !== apiValue) {
+    callback(`Expect x but got ${apiValue}`);
+  }
+}, (error) => {
+  console.log(error);
+});
 ```
 
 ## LICENSE

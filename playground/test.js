@@ -1,6 +1,14 @@
 const bv = require('../dist/b-validate.cjs').default;
 const { Schema } = require('../dist/b-validate.cjs');
 
+function api() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(1200);
+    }, 1000);
+  });
+}
+
 // bv()
 //   .string
 //   .isRequired
@@ -43,18 +51,6 @@ const { Schema } = require('../dist/b-validate.cjs');
 // console.log(bv('https://www.bytedance.com').type.url.end);
 
 // console.log(bv('127.0.0.13').type.ip.end);
-
-// bv(123)
-//   .custom
-//   .create((value, callback) => {
-//     if (value > 250) {
-//       callback('Must < 250');
-//     }
-//   })
-//   .collect((err) => {
-//     console.log(err);
-//   });
-
 // console.log(Schema);
 
 new Schema({
@@ -110,9 +106,10 @@ new Schema({
     required: true
   }],
   custom: [{
-    validator: (value, callback) => {
-      if (value > 10) {
-        callback('不能大于10！');
+    validator: async (value, callback) => {
+      const a = await api();
+      if (value > a) {
+        callback(`Must < ${a}`);
       }
     }
   }]
@@ -124,7 +121,7 @@ new Schema({
   ip: '127.0.0.1',
   url: 'https://bytedance.com',
   array: undefined,
-  custom: 20
+  custom: 1234
 }, (errors) => {
   console.log(errors);
 });
