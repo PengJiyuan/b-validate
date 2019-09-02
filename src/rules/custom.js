@@ -14,7 +14,7 @@ class CustomValidater extends Base {
       let ret;
       if (validator) {
         ret = validator(_this.obj, _this.addError.bind(_this));
-        if (validator.constructor.name === 'AsyncFunction') {
+        if (ret && ret.then) {
           if (callback) {
             ret.then(
               () => {
