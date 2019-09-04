@@ -35,8 +35,12 @@ class StringValidater extends Base {
   }
 
   match(pattern) {
+    const isRegex = pattern instanceof RegExp;
+    if (isRegex) {
+      pattern.lastIndex = 0;
+    }
     return this.validate(
-      pattern.test(this.obj),
+      isRegex && pattern.test(this.obj),
       `\`${this.obj}\` is not match pattern ${pattern}`
     );
   }

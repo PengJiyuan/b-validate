@@ -53,77 +53,30 @@ function api() {
 // console.log(bv('127.0.0.13').type.ip.end);
 // console.log(Schema);
 
-new Schema({
+const a = new Schema({
   name: [{
     type: 'string',
-    required: true,
-    message: '必填字段'
-  }, {
-    type: 'string',
-    maxLength: 10,
-    message: '最大长度是10'
-  }],
-  age: [{
-    type: 'number',
-    required: true,
-    message: '必填'
-  }, {
-    type: 'number',
-    min: 2,
-    max: 5,
-    message: '在2和5之间'
-  }],
-  email: [{
-    type: 'string',
-    required: true,
-    message: '必填'
-  }, {
-    type: 'email',
-    message: '邮箱格式不对'
-  }],
-  ip: [{
-    type: 'string',
-    required: true,
-    message: '必填'
-  }, {
-    type: 'ip',
-    message: 'ip格式不对'
-  }],
-  url: [{
-    type: 'string',
-    required: true,
-    message: '必填'
-  }, {
-    type: 'url',
-    message: 'url格式不对'
-  }],
-  array: [{
-    type: 'array',
-    required: true,
-    message: '必填'
-  }, {
-    type: 'array',
-    required: true
-  }],
-  custom: [{
-    validator: async (value, callback) => {
-      const a = await api();
-      if (value > a) {
-        callback(`Must < ${a}`);
-      }
-    }
+    match: /^[a-zA-Z][a-zA-Z0-9_-]{1,64}$/g,
+    message: '正则错误'
   }]
-})
-.validate({
-  name: undefined,
-  age: undefined,
-  email: '', // 'pengjiyuan@bytedance.com'
-  ip: '127.0.0.1',
-  url: 'https://bytedance.com',
-  array: undefined,
-  custom: 1234
-}, (errors) => {
-  console.log(errors);
 });
+
+let i = 0;
+let timer = setInterval(() => {
+  if (i > 5) {
+    clearInterval(timer);
+  }
+  a.validate({
+    name: 'aaa',
+    age: undefined,
+    email: '', // 'pengjiyuan@bytedance.com'
+    ip: '127.0.0.1',
+    url: 'https://bytedance.com',
+    array: undefined,
+    custom: 1234
+  }, (errors) => {
+    console.log(errors);
+  });
+}, 1000)
 
 // console.log( bv('b-validate').string.isRequired.match(/validater/).end);
