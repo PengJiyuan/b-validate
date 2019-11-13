@@ -28,13 +28,12 @@ function api() {
 //     console.log(error);
 //   });
 
-// bv([])
-//   .array
-//   .isRequired
-//   .deepEqual(['a', 'b'])
-//   .collect((error) => {
-//     console.log(error);
-//   });
+bv([])
+  .array
+  .isRequired
+  .collect((error) => {
+    console.log(error);
+  });
 
 // bv({})
 //   .object
@@ -61,22 +60,22 @@ const a = new Schema({
   }]
 });
 
-let i = 0;
-let timer = setInterval(() => {
-  if (i > 5) {
-    clearInterval(timer);
-  }
-  a.validate({
-    name: 'aaa',
-    age: undefined,
-    email: '', // 'pengjiyuan@bytedance.com'
-    ip: '127.0.0.1',
-    url: 'https://bytedance.com',
-    array: undefined,
-    custom: 1234
-  }, (errors) => {
-    console.log(errors);
-  });
-}, 1000)
+// let i = 0;
+// let timer = setInterval(() => {
+//   if (i > 5) {
+//     clearInterval(timer);
+//   }
+//   a.validate({
+//     name: 'aaa',
+//     age: undefined,
+//     email: '', // 'pengjiyuan@bytedance.com'
+//     ip: '127.0.0.1',
+//     url: 'https://bytedance.com',
+//     array: undefined,
+//     custom: 1234
+//   }, (errors) => {
+//     console.log(errors);
+//   });
+// }, 1000)
 
 // console.log( bv('b-validate').string.isRequired.match(/validater/).end);

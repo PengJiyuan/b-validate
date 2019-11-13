@@ -23,7 +23,7 @@ class Base {
   }
 
   get isRequired() {
-    if (isEmptyValue(this.obj)) {
+    if (isEmptyValue(this.obj) || isEmptyArray(this.obj)) {
       this.error = {
         value: this.obj,
         type: this.type,

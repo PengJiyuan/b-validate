@@ -7,7 +7,7 @@ it('array type', () => {
 
 it('array required', () => {
   expect(bv().array.isRequired.end.message).toBe('array is required');
-  expect(bv([]).array.isRequired.end).toBe(null);
+  expect(bv([]).array.isRequired.end.message).toBe('array is required');
 });
 
 it('array.length', () => {
