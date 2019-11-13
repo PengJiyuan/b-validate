@@ -9,7 +9,7 @@ class ObjectValidater extends Base {
       type: 'object'
     });
     this.validate(
-      isObject(this.obj),
+      options && options.strict ? isObject(this.obj) : true,
       `Expect object type but got \`${this.obj}\``
     );
   }

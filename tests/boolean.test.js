@@ -2,7 +2,7 @@ import bv from '../src';
 
 it('boolean type', () => {
   expect(bv(true).boolean.end).toBe(null);
-  expect(bv('12').boolean.end.message).toBe('Expect boolean type but got string');
+  expect(bv('12', { strict: true }).boolean.end.message).toBe('Expect boolean type but got string');
 });
 
 it('boolean required', () => {

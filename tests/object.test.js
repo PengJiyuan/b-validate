@@ -2,7 +2,7 @@ import bv from '../src';
 
 it('object type', () => {
   expect(bv({}).object.end).toBe(null);
-  expect(bv('12').object.end.message).toBe('Expect object type but got `12`');
+  expect(bv('12', { strict: true }).object.end.message).toBe('Expect object type but got `12`');
 });
 
 it('object required', () => {

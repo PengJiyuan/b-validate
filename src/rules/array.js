@@ -9,7 +9,7 @@ class ArrayValidater extends Base {
       type: 'array'
     });
     this.validate(
-      isArray(this.obj),
+      options && options.strict ? isArray(this.obj) : true,
       `Expect array type but got \`${this.obj}\``
     );
   }

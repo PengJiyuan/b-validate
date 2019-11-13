@@ -8,7 +8,7 @@ class NumberValidater extends Base {
       type: 'number'
     });
     this.validate(
-      isNumber(this.obj),
+      options && options.strict ? isNumber(this.obj) : true,
       `Expect number type but got ${typeof this.obj}`
     );
   }

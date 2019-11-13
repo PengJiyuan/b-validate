@@ -6,6 +6,6 @@ it('option.trim', () => {
 });
 
 it('option.message', () => {
-  expect(bv('12').number.end.message).toBe('Expect number type but got string');
-  expect(bv('12', {message: '请输入数字格式'}).number.end.message).toBe('请输入数字格式');
+  expect(bv('12', { strict: true }).number.end.message).toBe('Expect number type but got string');
+  expect(bv('12', {message: '请输入数字格式', strict: true}).number.end.message).toBe('请输入数字格式');
 });

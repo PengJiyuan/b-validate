@@ -8,7 +8,7 @@ class StringValidater extends Base {
       type: 'string'
     });
     this.validate(
-      isString(this.obj),
+      options && options.strict ? isString(this.obj) : true,
       `Expect string type but got ${typeof this.obj}`
     );
   }

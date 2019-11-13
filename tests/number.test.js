@@ -2,7 +2,7 @@ import bv from '../src';
 
 it('number type', () => {
   expect(bv(12).number.end).toBe(null);
-  expect(bv('12').number.end.message).toBe('Expect number type but got string');
+  expect(bv('12', { strict: true }).number.end.message).toBe('Expect number type but got string');
 });
 
 it('number required', () => {

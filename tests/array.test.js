@@ -2,7 +2,7 @@ import bv from '../src';
 
 it('array type', () => {
   expect(bv([]).array.end).toBe(null);
-  expect(bv('12').array.end.message).toBe('Expect array type but got `12`');
+  expect(bv('12', { strict: true }).array.end.message).toBe('Expect array type but got `12`');
 });
 
 it('array required', () => {

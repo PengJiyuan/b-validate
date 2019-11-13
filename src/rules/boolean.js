@@ -8,7 +8,7 @@ class BooleanValidater extends Base {
       type: 'boolean'
     });
     this.validate(
-      isBoolean(this.obj),
+      options && options.strict ? isBoolean(this.obj) : true,
       `Expect boolean type but got ${typeof this.obj}`
     );
   }
