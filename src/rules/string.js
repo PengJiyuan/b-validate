@@ -40,7 +40,7 @@ class StringValidater extends Base {
       pattern.lastIndex = 0;
     }
     return this.validate(
-      isRegex && pattern.test(this.obj),
+      this.obj === undefined || (isRegex && pattern.test(this.obj)),
       `\`${this.obj}\` is not match pattern ${pattern}`
     );
   }
