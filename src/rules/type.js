@@ -15,21 +15,21 @@ class TypeValidater extends Base {
 
   get email() {
     return this.validate(
-      regexEmail.test(this.obj),
+      this.obj === undefined || regexEmail.test(this.obj),
       `Expect type email but got \`${this.obj}\``
     );
   }
 
   get url() {
     return this.validate(
-      regexUrl.test(this.obj),
+      this.obj === undefined || regexUrl.test(this.obj),
       `Expect type url but got \`${this.obj}\``
     );
   }
 
   get ip() {
     return this.validate(
-      regexIp.test(this.obj),
+      this.obj === undefined || regexIp.test(this.obj),
       `Expect type ip but got \`${this.obj}\``
     )
   }
