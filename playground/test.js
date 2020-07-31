@@ -1,6 +1,9 @@
 const bv = require('../dist/b-validate.cjs').default;
 const { Schema } = require('../dist/b-validate.cjs');
 
+console.log(bv('', { ignoreEmptyString: true }).type.email.end);
+return;
+
 function api() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {

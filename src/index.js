@@ -24,8 +24,9 @@ export default (obj, options) => {
 };
 
 export class Schema {
-  constructor(schema) {
+  constructor(schema, options = {}) {
     this.schema = schema;
+    this.options = options;
   }
 
   validate(values, callback) {
@@ -53,9 +54,9 @@ export class Schema {
               throw `You must specify a type to field ${key}!`;
             }
             if (type === 'email' || type === 'url' || type === 'ip') {
-              bv = new Validate(values[key], {message}).type[type];
+              bv = new Validate(values[key], { ...this.options, message }).type[type];
             } else if(rule.validator) {
-              bv = new Validate(values[key], {message}).custom.validate(rule.validator);
+              bv = new Validate(values[key], { ...this.options, message }).custom.validate(rule.validator);
               if (Object.prototype.toString.call(bv) === '[object Array]' && bv[0].then) {
                 promises.push({
                   function: bv[0],
@@ -67,7 +68,7 @@ export class Schema {
               }
               return;
             } else {
-              bv = new Validate(values[key], {message})[type];
+              bv = new Validate(values[key], { ...this.options, message })[type];
             }
             Object.keys(rule).forEach(r => {
               if (rule.required) {

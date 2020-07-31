@@ -2,11 +2,14 @@ import { isObject, isString, isEmptyValue, isEmptyArray, isEmptyObject } from '.
 
 /**
  * @param options.trim trim string value
+ * @param options.ignoreEmptyString used form type
  */
 class Base {
   constructor(obj, options) {
     if (isObject(options) && isString(obj) && options.trim) {
       this.obj = obj.trim();
+    } else if (isObject(options) && options.ignoreEmptyString && obj === '') {
+      this.obj = undefined;
     } else {
       this.obj = obj;
     }

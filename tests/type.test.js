@@ -17,3 +17,8 @@ it('type.ip', () => {
   expect(bv().type.ip.end).toBe(null);
   expect(bv('123.3333.333.3333').type.ip.end.message).toBe('Expect type ip but got `123.3333.333.3333`');
 });
+
+it('ignoreEmptyString', () => {
+  expect(bv('').type.ip.end.message).toBe('Expect type ip but got ``');
+  expect(bv('', { ignoreEmptyString: true }).type.ip.end).toBe(null);
+});
