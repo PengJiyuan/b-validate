@@ -77,7 +77,7 @@ export class Schema {
               if (bv[r] && rule[r] && typeof bv[r] === 'object') {
                 bv = bv[r];
               }
-              if (bv[r] && rule[r] && typeof bv[r] === 'function') {
+              if (bv[r] && rule[r] !== undefined  && typeof bv[r] === 'function') {
                 bv = bv[r](rule[r]);
               }
             });

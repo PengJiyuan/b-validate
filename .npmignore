@@ -1,4 +1,7 @@
+.coverage/
 playground/
 rollup.config.js
+jest.config.js
 src/
 tests/
+.travis.yml

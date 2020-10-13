@@ -11,7 +11,7 @@ it('number required', () => {
 });
 
 it('number.min', () => {
-  expect(bv(2).number.min(3).end.message).toBe('`2` is not greater than `3`');
+  expect(bv(-1).number.min(0).end.message).toBe('`-1` is not greater than `0`');
   expect(bv(2).number.min(1).end).toBe(null);
 });
 

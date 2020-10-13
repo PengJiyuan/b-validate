@@ -1,17 +1,6 @@
 const bv = require('../dist/b-validate.cjs').default;
 const { Schema } = require('../dist/b-validate.cjs');
 
-console.log(bv('', { ignoreEmptyString: true }).type.email.end);
-return;
-
-function api() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve(1200);
-    }, 1000);
-  });
-}
-
 // bv()
 //   .string
 //   .isRequired
@@ -31,13 +20,6 @@ function api() {
 //     console.log(error);
 //   });
 
-bv([])
-  .array
-  .isRequired
-  .collect((error) => {
-    console.log(error);
-  });
-
 // bv({})
 //   .object
 //   .isRequired
@@ -56,11 +38,14 @@ bv([])
 // console.log(Schema);
 
 const a = new Schema({
-  name: [{
-    type: 'string',
-    match: /^[a-zA-Z][a-zA-Z0-9_-]{1,64}$/g,
-    message: '正则错误'
+  age: [{
+    type: 'number',
+    min: 0
   }]
+});
+
+a.validate({ age: -2 }, (errors) => {
+  console.log(errors);
 });
 
 // let i = 0;
