@@ -11,25 +11,23 @@ class CustomValidater extends Base {
   get validate() {
     const _this = this;
     return function(validator, callback) {
-      let ret;
-      if (validator) {
-        ret = validator(_this.obj, _this.addError.bind(_this));
-        if (ret && ret.then) {
-          if (callback) {
-            ret.then(
-              () => {
-                callback && callback(_this.error);
-              },
-              (e) => {
-                console.error(e);
-              }
-            );
-          }
-          return [ret, _this];
-        } else {
+      let resolve;
+
+      let ret = (function () {
+        return new Promise((res) => {
+          resolve = res;
+        }).then(() => {
           callback && callback(_this.error);
-          return this.error;
-        }
+        });
+      })();
+
+      if (validator) {
+        validator(_this.obj, (message) => {
+          _this.addError.call(_this, message);
+          resolve && resolve();
+        });
+
+        return [ret, _this];
       }
     };
   }
