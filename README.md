@@ -74,6 +74,8 @@ const schema = new Schema({
     validator: (value, callback) => {
       if (value > 10) {
         callback('不能大于10！');
+      } else {
+        callback();
       }
     }
   }],
@@ -84,8 +86,19 @@ const schema = new Schema({
         callback('不能大于10！');
       }
     }
+  }],
+  async2: [{
+    validator: (value, callback) => {
+      if (value > 10) {
+        setTimeout(() => {
+          callback('不能大于10！');
+        }, 1000)
+      } else {
+        callback()
+      }
+    }
   }]
-});
+}, { strict: true });
 
 schema.validate({
   name: 'pengjiyuan is a nice boy',
@@ -98,7 +111,7 @@ schema.validate({
 }, (errors) => {
   console.log(errors);
   /*
-   * { 
+   * {
    *  value: 'pengjiyuan is a nice boy', type: 'string', message: '最大长度是10' },
    *  age: { value: 24, type: 'number', message: '在2和5之间' },
    *  url: { value: 'https://bytedancecom', type: 'url', message: 'url格式不对' },
