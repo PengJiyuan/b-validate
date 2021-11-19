@@ -1,4 +1,4 @@
-import { isObject, isString, isEmptyValue, isEmptyArray, isEmptyObject } from '../is';
+import { isObject, isString, isEmptyValue, isEmptyArray } from "../is";
 
 /**
  * @param options.trim trim string value
@@ -8,14 +8,12 @@ class Base {
   constructor(obj, options) {
     if (isObject(options) && isString(obj) && options.trim) {
       this.obj = obj.trim();
-    } else if (isObject(options) && options.ignoreEmptyString && obj === '') {
+    } else if (isObject(options) && options.ignoreEmptyString && obj === "") {
       this.obj = undefined;
     } else {
       this.obj = obj;
     }
-    if (isString(options.message)) {
-      this.message = options.message;
-    }
+    this.message = options.message;
     this.type = options.type;
     this.error = null;
   }
@@ -31,7 +29,9 @@ class Base {
         value: this.obj,
         type: this.type,
         requiredError: true,
-        message: this.message || `${this._not ? '[NOT MODE]:': ''}${this.type} is required`
+        message:
+          this.message ||
+          `${this._not ? "[NOT MODE]:" : ""}${this.type} is required`,
       };
     }
     return this;
@@ -46,7 +46,7 @@ class Base {
       this.error = {
         value: this.obj,
         type: this.type,
-        message: this.message || `${this._not ? '[NOT MODE]:': ''}${message}`
+        message: this.message || `${this._not ? "[NOT MODE]:" : ""}${message}`,
       };
     }
   }

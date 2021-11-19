@@ -1,11 +1,11 @@
-import { isArray, isObject } from './is';
-import StringValidater from './rules/string';
-import NumberValidater from './rules/number';
-import ArrayValidater from './rules/array';
-import ObjectValidater from './rules/object';
-import BooleanValidater from './rules/boolean';
-import TypeValidater from './rules/type';
-import CustomValidater from './rules/custom';
+import { isArray, isObject } from "./is";
+import StringValidater from "./rules/string";
+import NumberValidater from "./rules/number";
+import ArrayValidater from "./rules/array";
+import ObjectValidater from "./rules/object";
+import BooleanValidater from "./rules/boolean";
+import TypeValidater from "./rules/type";
+import CustomValidater from "./rules/custom";
 
 class Validate {
   constructor(obj, options) {
@@ -53,31 +53,50 @@ export class Schema {
             if (!type && !rule.validator) {
               throw `You must specify a type to field ${key}!`;
             }
-            if (type === 'email' || type === 'url' || type === 'ip') {
-              bv = new Validate(values[key], { ...this.options, message }).type[type];
-            } else if(rule.validator) {
-              bv = new Validate(values[key], { ...this.options, message }).custom.validate(rule.validator);
-              if (Object.prototype.toString.call(bv) === '[object Array]' && bv[0].then) {
+            if (type === "email" || type === "url" || type === "ip") {
+              bv = new Validate(values[key], { ...this.options, message }).type[
+                type
+              ];
+            } else if (rule.validator) {
+              bv = new Validate(values[key], {
+                ...this.options,
+                message,
+              }).custom.validate(rule.validator);
+              if (
+                Object.prototype.toString.call(bv) === "[object Array]" &&
+                bv[0].then
+              ) {
                 promises.push({
                   function: bv[0],
                   _this: bv[1],
-                  key
+                  key,
                 });
               } else if (bv) {
                 setError(key, bv);
               }
               return;
             } else {
-              bv = new Validate(values[key], { ...this.options, message })[type];
+              bv = new Validate(values[key], { ...this.options, message })[
+                type
+              ];
             }
-            Object.keys(rule).forEach(r => {
+            Object.keys(rule).forEach((r) => {
               if (rule.required) {
                 bv = bv.isRequired;
               }
-              if (bv[r] && rule[r] && typeof bv[r] === 'object') {
+              if (
+                r !== "message" &&
+                bv[r] &&
+                rule[r] &&
+                typeof bv[r] === "object"
+              ) {
                 bv = bv[r];
               }
-              if (bv[r] && rule[r] !== undefined  && typeof bv[r] === 'function') {
+              if (
+                bv[r] &&
+                rule[r] !== undefined &&
+                typeof bv[r] === "function"
+              ) {
                 bv = bv[r](rule[r]);
               }
             });
@@ -91,7 +110,7 @@ export class Schema {
       });
     }
     if (promises.length > 0) {
-      Promise.all(promises.map(a => a.function)).then(() => {
+      Promise.all(promises.map((a) => a.function)).then(() => {
         promises.forEach((promise) => {
           if (promise._this.error) {
             setError(promise.key, promise._this.error);
