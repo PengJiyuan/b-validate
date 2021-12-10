@@ -46,7 +46,8 @@ export class Schema {
     if (this.schema) {
       Object.keys(this.schema).forEach((key) => {
         if (isArray(this.schema[key])) {
-          this.schema[key].forEach((rule) => {
+          for (let i = 0; i < this.schema[key].length; i++) {
+            const rule = this.schema[key][i];
             const type = rule.type;
             const message = rule.message;
             let bv;
@@ -74,7 +75,7 @@ export class Schema {
               } else if (bv) {
                 setError(key, bv);
               }
-              return;
+              continue;
             } else {
               bv = new Validate(values[key], { ...this.options, message })[
                 type
@@ -105,7 +106,10 @@ export class Schema {
                 setError(key, error);
               }
             });
-          });
+            if (errors) {
+              break
+            }
+          }
         }
       });
     }
