@@ -46,7 +46,7 @@ class Base {
       this.error = {
         value: this.obj,
         type: this.type,
-        message: this.message || `${this._not ? "[NOT MODE]:" : ""}${message}`,
+        message: this.message || (isObject(message) ? message : `${this._not ? "[NOT MODE]:" : ""}${message}`),
       };
     }
   }
