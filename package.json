@@ -5,7 +5,7 @@
   "module": "./dist/b-validate.es.js",
   "main": "./dist/b-validate.cjs.js",
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublishOnly": "npm run build",
     "dev-cjs": "rollup -c -f cjs -o ./dist/b-validate.cjs.js -w",
     "dev-es": "rollup -c -w",
     "build": "rm -rf dist/* && rollup -c -o ./dist/b-validate.es.js && rollup -c -f cjs -o ./dist/b-validate.cjs.js",
