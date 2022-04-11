@@ -1,4 +1,4 @@
-import bv from '../src';
+import bv from '../es';
 
 it('test not', () => {
   expect(bv('abc').string.uppercase.end.message).toBe('Expect `abc` to be uppercased');

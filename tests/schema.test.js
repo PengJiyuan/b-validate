@@ -1,4 +1,4 @@
-import { Schema } from '../src';
+import { Schema } from '../es';
 
 it('test schema', () => {
   const schema = new Schema({

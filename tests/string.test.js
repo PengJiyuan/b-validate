@@ -1,28 +1,39 @@
-import bv from '../src';
+import bv from '../es';
 
 it('string type', () => {
   expect(bv('12').string.end).toBe(null);
-  expect(bv(12, { strict: true }).string.end.message).toBe('Expect string type but got number');
+  expect(bv(12, { strict: true }).string.end.message).toBe('`12` is not a string type');
 });
 
 it('string required', () => {
   expect(bv('').string.isRequired.end.message).toBe('string is required');
+  expect(
+    bv('', {
+      validateMessages: { required: '必须填写' },
+    }).string.isRequired.end.message
+  ).toBe('必须填写');
+
+  expect(
+    bv('', {
+      validateMessages: { required: () => '必须填写' },
+    }).string.isRequired.end.message
+  ).toBe('必须填写');
   expect(bv('123').string.isRequired.end).toBe(null);
 });
 
 it('string.maxLength', () => {
-  expect(bv('123').string.maxLength(2).end.message).toBe('Expect max length 2 but got 3');
+  expect(bv('123').string.maxLength(2).end.message).toBe('The `123` length is not greater than 2');
   expect(bv('123').string.maxLength(4).end).toBe(null);
 });
 
 it('string.minLength', () => {
-  expect(bv('123').string.minLength(4).end.message).toBe('Expect min length 4 but got 3');
+  expect(bv('123').string.minLength(4).end.message).toBe('The `123` length is not less than 4');
   expect(bv('123').string.minLength(3).end).toBe(null);
 });
 
 it('string.length', () => {
   expect(bv('123').string.length(3).end).toBe(null);
-  expect(bv('123').string.length(4).end.message).toBe('Expect length 4 but got 3');
+  expect(bv('123').string.length(4).end.message).toBe('The `123` length is not equal to 4');
 });
 
 it('string.match', () => {

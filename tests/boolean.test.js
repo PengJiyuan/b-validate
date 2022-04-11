@@ -1,8 +1,8 @@
-import bv from '../src';
+import bv from '../es';
 
 it('boolean type', () => {
   expect(bv(true).boolean.end).toBe(null);
-  expect(bv('12', { strict: true }).boolean.end.message).toBe('Expect boolean type but got string');
+  expect(bv('12', { strict: true }).boolean.end.message).toBe('`12` is not a boolean type');
 });
 
 it('boolean required', () => {
@@ -12,10 +12,10 @@ it('boolean required', () => {
 
 it('boolean.true', () => {
   expect(bv(true).boolean.true.end).toBe(null);
-  expect(bv(false).boolean.true.end.message).toBe('Expect true but got false');
+  expect(bv(false).boolean.true.end.message).toBe('Expect true but got `false`');
 });
 
 it('boolean.false', () => {
   expect(bv(false).boolean.false.end).toBe(null);
-  expect(bv(true).boolean.false.end.message).toBe('Expect false but got true');
+  expect(bv(true).boolean.false.end.message).toBe('Expect false but got `true`');
 });

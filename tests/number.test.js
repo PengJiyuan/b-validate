@@ -1,8 +1,8 @@
-import bv from '../src';
+import bv from '../es';
 
 it('number type', () => {
   expect(bv(12).number.end).toBe(null);
-  expect(bv('12', { strict: true }).number.end.message).toBe('Expect number type but got string');
+  expect(bv('12', { strict: true }).number.end.message).toBe('`12` is not a number type');
 });
 
 it('number required', () => {
@@ -37,12 +37,12 @@ it('number.equal', () => {
 
 it('number.positive', () => {
   expect(bv(2).number.positive.end).toBe(null);
-  expect(bv(-1).number.positive.end.message).toBe('Expect number to be positive, but got `-1`');
-  expect(bv(0).number.positive.end.message).toBe('Expect number to be positive, but got `0`');
+  expect(bv(-1).number.positive.end.message).toBe('`-1` is not a positive number');
+  expect(bv(0).number.positive.end.message).toBe('`0` is not a positive number');
 });
 
 it('number.negative', () => {
   expect(bv(-1).number.negative.end).toBe(null);
-  expect(bv(2).number.negative.end.message).toBe('Expect number to be negative, but got `2`');
-  expect(bv(0).number.negative.end.message).toBe('Expect number to be negative, but got `0`');
+  expect(bv(2).number.negative.end.message).toBe('`2` is not a negative number');
+  expect(bv(0).number.negative.end.message).toBe('`0` is not a negative number');
 });

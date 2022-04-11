@@ -66,4 +66,4 @@ a.validate({ age: -2 }, (errors) => {
 //   });
 // }, 1000)
 
-// console.log( bv('b-validate').string.isRequired.match(/validater/).end);
+// console.log( bv('b-validate').string.isRequired.match(/Validator/).end);
