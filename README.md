@@ -33,8 +33,8 @@ bv(123)
 
 // or get error message like this:
 
-const error = bv('b-validate').string.isRequired.match(/validater/).end;
-// { value: 'b-validate', type: 'string', message: '`b-validate` is not match pattern /validater/' }
+const error = bv('b-validate').string.isRequired.match(/Validator/).end;
+// { value: 'b-validate', type: 'string', message: '`b-validate` is not match pattern /Validator/' }
 ```
 
 ### Schema
@@ -98,7 +98,7 @@ schema.validate({
 }, (errors) => {
   console.log(errors);
   /*
-   * { 
+   * {
    *  value: 'pengjiyuan is a nice boy', type: 'string', message: '最大长度是10' },
    *  age: { value: 24, type: 'number', message: '在2和5之间' },
    *  url: { value: 'https://bytedancecom', type: 'url', message: 'url格式不对' },
@@ -106,6 +106,15 @@ schema.validate({
    * }
    */
 });
+```
+
+### validate messages
+
+```
+import bv from 'b-validate';
+
+const error = bv('', {validateMessages: {required: '必须有值'}}).string.isRequired.end.message;
+// output: 必须有值
 ```
 
 ## Api

@@ -1,4 +1,4 @@
-import bv from '../src';
+import bv from '../es';
 
 it('custom create', () => {
   bv('123').custom.validate((value, callback) => {

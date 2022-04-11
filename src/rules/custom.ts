@@ -1,16 +1,18 @@
+import { InnerValidateOptions, ValidatorError, CustomValidatorType } from './../interface';
 import Base from './base';
 
-class CustomValidater extends Base {
-  constructor(obj, options) {
+class CustomValidator extends Base {
+  constructor(obj: any, options: InnerValidateOptions) {
     super(obj, {
       ...options,
-      type: 'custom'
+      type: 'custom',
     });
   }
 
+  // @ts-ignore
   get validate() {
     const _this = this;
-    return function(validator, callback) {
+    return function (validator: CustomValidatorType, callback?: (message?: ValidatorError | null) => void) {
       let ret;
       if (validator) {
         ret = validator(_this.obj, _this.addError.bind(_this));
@@ -20,7 +22,7 @@ class CustomValidater extends Base {
               () => {
                 callback && callback(_this.error);
               },
-              (e) => {
+              (e: Error) => {
                 console.error(e);
               }
             );
@@ -28,12 +30,12 @@ class CustomValidater extends Base {
           return [ret, _this];
         } else {
           callback && callback(_this.error);
-          return this.error;
+          return _this.error;
         }
       }
     };
   }
 }
 
-export default CustomValidater;
+export default CustomValidator;
 
