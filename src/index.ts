@@ -122,4 +122,10 @@ export class Schema {
   }
 }
 
-export { SchemaType, SchemaRuleType, ValidateOptions, ValidateMessagesType } from './interface';
+export {
+  SchemaType,
+  SchemaRuleType,
+  ValidateOptions,
+  ValidateMessagesType,
+  ValidateMessagesTemplateType,
+} from './interface';
