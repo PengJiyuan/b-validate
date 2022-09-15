@@ -129,3 +129,5 @@ export {
   ValidateMessagesType,
   ValidateMessagesTemplateType,
 } from './interface';
+
+export { default as DefaultValidateMessage } from './message';
