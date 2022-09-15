@@ -1,4 +1,4 @@
-const defaultTypeTemplate = '`#{value}` is not a #{type} type';
+const defaultTypeTemplate = '#{field} is not a #{type} type';
 
 export default {
   required: '#{field} is required',
@@ -20,26 +20,26 @@ export default {
     positive: '`#{value}` is not a positive number',
     negative: '`#{value}` is not a negative number',
   },
-  array: {
-    length: 'The `#{value}` length is not equal to #{length}',
-    minLength: 'The `#{value}` length is not greater than #{minLength}',
-    maxLength: 'The `#{value}` length is not less than #{maxLength}',
-    includes: '#{value} is not includes #{includes}',
-    deepEqual: '#{value} is not deep equal with #{deepEqual}',
-    empty: '`#{value}` is not an empty array',
-  },
   string: {
-    maxLength: 'The `#{value}` length is not greater than #{maxLength}',
-    minLength: 'The `#{value}` length is not less than #{minLength}',
-    length: 'The `#{value}` length is not equal to #{length}',
-    match: '`#{value}` is not match pattern #{pattern}',
-    uppercase: 'Expect `#{value}` to be uppercased',
-    lowercase: 'Expect `#{value}` to be lowercased',
+    maxLength: '#{field} cannot be longer than #{maxLength} characters',
+    minLength: '#{field} must be at least #{minLength} characters',
+    length: '#{field} must be exactly #{length} characters',
+    match: '`#{value}` does not match pattern #{pattern}',
+    uppercase: '`#{value}` must be all uppercase',
+    lowercase: '`#{value}` must be all lowercased',
+  },
+  array: {
+    length: '#{field} must be exactly #{length} in length',
+    minLength: '#{field} cannot be less than #{minLength} in length',
+    maxLength: '#{field} cannot be greater than #{maxLength} in length',
+    includes: '#{field} is not includes #{includes}',
+    deepEqual: '#{field} is not deep equal with #{deepEqual}',
+    empty: '#{field} is not an empty array',
   },
   object: {
-    deepEqual: '`#{value}` is not deep equal with #{deepEqual}',
-    hasKeys: '`#{value}` is not has keys #{keys}',
-    empty: '`#{value}` is not an empty object',
+    deepEqual: '#{field} is not deep equal to expected value',
+    hasKeys: '#{field} does not contain required fields',
+    empty: '`#{field} is not an empty object',
   },
   boolean: {
     true: 'Expect true but got `#{value}`',

@@ -81,7 +81,11 @@ class Base {
         const key = variable.slice(2, -1);
         if (key in data) {
           if (isObject(data[key]) || isArray(data[key])) {
-            return JSON.stringify(data[key]);
+            try {
+              return JSON.stringify(data[key]);
+            } catch (_) {
+              return data[key];
+            }
           }
           return String(data[key]);
         }

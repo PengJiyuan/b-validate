@@ -44,13 +44,12 @@ export function isEmptyArray(obj: any): boolean {
   return isArray(obj) && !obj.length;
 }
 
-
 export const isEqual = (obj: any, other: any): boolean => {
   if (typeof obj !== 'object' || typeof other !== 'object') {
     return obj === other;
   }
   if (isFunction(obj) && isFunction(other)) {
-    return obj === other || (obj.toString() === other.toString());
+    return obj === other || obj.toString() === other.toString();
   }
 
   if (Object.keys(obj).length !== Object.keys(other).length) {
@@ -62,4 +61,3 @@ export const isEqual = (obj: any, other: any): boolean => {
   }
   return true;
 };
-
