@@ -40,11 +40,12 @@ class Base {
 
   get isRequired() {
     if (isEmptyValue(this.obj) || isEmptyArray(this.obj)) {
+      const message = this.getValidateMsg('required');
       this.error = {
         value: this.obj,
         type: this.type,
         requiredError: true,
-        message: this.message || `${this._not ? '[NOT MODE]:' : ''}${this.getValidateMsg('required')}`,
+        message: this.message || (isObject(message) ? message : `${this._not ? '[NOT MODE]:' : ''}${message}`),
       };
     }
     return this;

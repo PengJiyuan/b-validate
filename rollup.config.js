@@ -19,6 +19,7 @@ const config = {
     : [
         {
           dir: 'es',
+          format: 'es',
         },
       ],
   // output: {
