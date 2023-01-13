@@ -2,11 +2,11 @@ import bv from '../es';
 
 it('number type', () => {
   expect(bv(12).number.end).toBe(null);
-  expect(bv('12', { strict: true }).number.end.message).toBe('`12` is not a number type');
+  expect(bv('12', { strict: true }).number.end.message).toBe('value is not a number type');
 });
 
 it('number required', () => {
-  expect(bv().number.isRequired.end.message).toBe('number is required');
+  expect(bv().number.isRequired.end.message).toBe('value is required');
   expect(bv(123).number.isRequired.end).toBe(null);
   expect(bv(0).number.isRequired.end).toBe(null);
 });

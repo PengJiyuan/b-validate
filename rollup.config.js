@@ -1,10 +1,13 @@
 import buble from 'rollup-plugin-buble';
 import typescript from '@rollup/plugin-typescript';
+import glob from 'glob';
 
 const isDist = process.env.BUILD_TYPE === 'dist';
 
-const config = {
-  input: './src/index.ts',
+const files = glob.sync(`./src/**/*.ts`);
+
+export default {
+  input: isDist ? './src/index.ts' : files,
   output: isDist
     ? [
         {
@@ -20,12 +23,15 @@ const config = {
         {
           dir: 'es',
           format: 'es',
+          preserveModules: true,
+          preserveModulesRoot: 'es',
+          //   assetFileNames: ({ name }) => {
+          //     const { dir, base } = path.parse(name);
+          //     console.log(dir, base, '____________');
+          //     return path.join(dir, base);
+          //   },
         },
       ],
-  // output: {
-  //   // file: './dist/b-validate.es.js',
-  //   // format: 'es',
-  // },
   plugins: [
     typescript({
       compilerOptions: isDist
@@ -36,8 +42,7 @@ const config = {
             outDir: 'es',
           },
     }),
+
     buble({ objectAssign: true }),
   ],
 };
-
-export default config;
