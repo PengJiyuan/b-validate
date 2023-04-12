@@ -4,6 +4,7 @@
   "description": "Javascript type validate",
   "main": "./dist/b-validate.cjs.js",
   "module": "./es/index.js",
+  "types": "./es/index.d.ts",
   "scripts": {
     "prepublishOnly": "npm run build",
     "dev-cjs": "rollup -c -f cjs -o ./dist/b-validate.cjs.js -w",
