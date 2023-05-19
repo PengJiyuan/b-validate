@@ -1,5 +1,11 @@
-import { SchemaType, ValidateOptions, InnerValidateOptions } from './interface';
-import { isArray, isObject } from './is';
+import { mergeTemplate } from './util';
+import {
+  SchemaType,
+  ValidateOptions,
+  InnerValidateOptions,
+  ValidateMessagesType,
+} from './interface';
+import { isArray, isObject, isUndefined } from './is';
 import StringValidator from './rules/string';
 import NumberValidator from './rules/number';
 import ArrayValidator from './rules/array';
@@ -7,6 +13,7 @@ import ObjectValidator from './rules/object';
 import BooleanValidator from './rules/boolean';
 import TypeValidator from './rules/type';
 import CustomValidator from './rules/custom';
+import defaultValidateMessages from './message';
 
 class Validate {
   number: NumberValidator;
@@ -17,7 +24,11 @@ class Validate {
   type: TypeValidator;
   custom: CustomValidator;
 
-  constructor(obj: any, options: InnerValidateOptions) {
+  constructor(obj: any, _options: InnerValidateOptions) {
+    const options = {
+      ..._options,
+      validateMessages: mergeTemplate(BValidate.validateMessages, _options.validateMessages),
+    };
     this.string = new StringValidator(obj, options);
     this.number = new NumberValidator(obj, options);
     this.array = new ArrayValidator(obj, options);
@@ -28,10 +39,6 @@ class Validate {
   }
 }
 
-export default (obj: any, options: ValidateOptions) => {
-  return new Validate(obj, options);
-};
-
 export class Schema {
   schema: SchemaType;
   options: ValidateOptions;
@@ -39,6 +46,14 @@ export class Schema {
   constructor(schema: SchemaType, options: ValidateOptions = {}) {
     this.schema = schema;
     this.options = options;
+  }
+
+  // 更新校验信息
+  messages(validateMessages: ValidateMessagesType) {
+    this.options = {
+      ...this.options,
+      validateMessages: mergeTemplate(this.options.validateMessages, validateMessages),
+    };
   }
 
   validate(values: { [key: string]: any }, callback) {
@@ -65,7 +80,11 @@ export class Schema {
             if (!type && !rule.validator) {
               throw `You must specify a type to field ${key}!`;
             }
-            let validator: Validate = new Validate(values[key], { ...this.options, message, field: key });
+            let validator: Validate = new Validate(values[key], {
+              ...this.options,
+              message,
+              field: key,
+            });
             let bv = validator.type[type as keyof TypeValidator] || null;
             if (!bv) {
               if (rule.validator) {
@@ -121,6 +140,22 @@ export class Schema {
     }
   }
 }
+
+const BValidate = (obj: any, options: ValidateOptions) => {
+  return new Validate(obj, {
+    field: 'value',
+    ...options,
+  });
+};
+
+BValidate.validateMessages = undefined;
+
+// 全局生效校验信息
+BValidate.setValidateMessages = (messages?: ValidateMessagesType) => {
+  BValidate.validateMessages = messages;
+};
+
+export default BValidate;
 
 export {
   SchemaType,
