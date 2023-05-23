@@ -2,11 +2,11 @@ import bv from '../es';
 
 it('boolean type', () => {
   expect(bv(true).boolean.end).toBe(null);
-  expect(bv('12', { strict: true }).boolean.end.message).toBe('`12` is not a boolean type');
+  expect(bv('12', { strict: true }).boolean.end.message).toBe('value is not a boolean type');
 });
 
 it('boolean required', () => {
-  expect(bv().boolean.isRequired.end.message).toBe('boolean is required');
+  expect(bv().boolean.isRequired.end.message).toBe('value is required');
   expect(bv(true).boolean.isRequired.end).toBe(null);
 });
 

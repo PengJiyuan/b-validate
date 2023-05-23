@@ -6,7 +6,7 @@ class BooleanValidator extends Base {
   constructor(obj: any, options: InnerValidateOptions) {
     super(obj, {
       ...options,
-      type: 'boolean'
+      type: 'boolean',
     });
     this.validate(
       options && options.strict ? isBoolean(this.obj) : true,

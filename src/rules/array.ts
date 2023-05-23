@@ -8,19 +8,37 @@ class ArrayValidator extends Base {
       ...options,
       type: 'array',
     });
-    this.validate(options && options.strict ? isArray(this.obj) : true, this.getValidateMsg('type.array', {value: this.obj,type: this.type}));
+    this.validate(
+      options && options.strict ? isArray(this.obj) : true,
+      this.getValidateMsg('type.array', { value: this.obj, type: this.type })
+    );
   }
 
   length(num: number) {
-    return this.obj ? this.validate(this.obj.length === num, this.getValidateMsg('array.length', {value: this.obj, length: num})) : this;
+    return this.obj
+      ? this.validate(
+          this.obj.length === num,
+          this.getValidateMsg('array.length', { value: this.obj, length: num })
+        )
+      : this;
   }
 
   minLength(num: number) {
-    return this.obj ? this.validate(this.obj.length >= num, this.getValidateMsg('array.minLength', {value: this.obj, minLength: num})) : this;
+    return this.obj
+      ? this.validate(
+          this.obj.length >= num,
+          this.getValidateMsg('array.minLength', { value: this.obj, minLength: num })
+        )
+      : this;
   }
 
   maxLength(num: number) {
-    return this.obj ? this.validate(this.obj.length <= num, this.getValidateMsg('array.maxLength', {value: this.obj, maxLength: num})) : this;
+    return this.obj
+      ? this.validate(
+          this.obj.length <= num,
+          this.getValidateMsg('array.maxLength', { value: this.obj, maxLength: num })
+        )
+      : this;
   }
 
   includes(arrays: number[]) {
@@ -37,12 +55,18 @@ class ArrayValidator extends Base {
 
   deepEqual(other: number[]) {
     return this.obj
-      ? this.validate(isEqual(this.obj, other), this.getValidateMsg('array.deepEqual', {value: this.obj, deepEqual: other}))
+      ? this.validate(
+          isEqual(this.obj, other),
+          this.getValidateMsg('array.deepEqual', { value: this.obj, deepEqual: other })
+        )
       : this;
   }
 
   get empty() {
-    return this.validate(isEmptyArray(this.obj), this.getValidateMsg('array.empty', {value: this.obj}));
+    return this.validate(
+      isEmptyArray(this.obj),
+      this.getValidateMsg('array.empty', { value: this.obj })
+    );
   }
 }
 

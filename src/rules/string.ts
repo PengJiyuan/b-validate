@@ -16,19 +16,25 @@ class StringValidator extends Base {
 
   maxLength(length: number) {
     return this.obj
-      ? this.validate(this.obj.length <= length, this.getValidateMsg('string.maxLength', { maxLength: length }))
+      ? this.validate(
+          this.obj.length <= length,
+          this.getValidateMsg('string.maxLength', { maxLength: length })
+        )
       : this;
   }
 
   minLength(length: number) {
     return this.obj
-      ? this.validate(this.obj.length >= length, this.getValidateMsg('string.minLength', { minLength:length }))
+      ? this.validate(
+          this.obj.length >= length,
+          this.getValidateMsg('string.minLength', { minLength: length })
+        )
       : this;
   }
 
   length(length: number) {
     return this.obj
-      ? this.validate(this.obj.length === length, this.getValidateMsg('string.length', {length}))
+      ? this.validate(this.obj.length === length, this.getValidateMsg('string.length', { length }))
       : this;
   }
 
@@ -39,7 +45,7 @@ class StringValidator extends Base {
     }
     return this.validate(
       this.obj === undefined || (isRegex && pattern.test(this.obj)),
-      this.getValidateMsg('string.match', {pattern})
+      this.getValidateMsg('string.match', { pattern })
     );
   }
 
