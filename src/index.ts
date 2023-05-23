@@ -1,4 +1,10 @@
-import { SchemaType, ValidateOptions, InnerValidateOptions } from './interface';
+import {
+  SchemaType,
+  ValidateOptions,
+  InnerValidateOptions,
+  ValidateMessagesType,
+  GlobalConfig,
+} from './interface';
 import { isArray, isObject } from './is';
 import StringValidator from './rules/string';
 import NumberValidator from './rules/number';
@@ -7,17 +13,36 @@ import ObjectValidator from './rules/object';
 import BooleanValidator from './rules/boolean';
 import TypeValidator from './rules/type';
 import CustomValidator from './rules/custom';
+import { mergeTemplate } from './util';
+
+const BValidate = (obj: any, options: ValidateOptions) => {
+  return new Validate(obj, { field: 'value', ...options });
+};
+
+BValidate.globalConfig = {} as GlobalConfig;
+
+// 全局生效校验信息
+BValidate.setGlobalConfig = (options: GlobalConfig) => {
+  BValidate.globalConfig = options || {};
+};
 
 class Validate {
   number: NumberValidator;
   string: StringValidator;
+
   array: ArrayValidator;
   object: ObjectValidator;
   boolean: BooleanValidator;
   type: TypeValidator;
   custom: CustomValidator;
 
-  constructor(obj: any, options: InnerValidateOptions) {
+  constructor(obj: any, _options: InnerValidateOptions) {
+    const globalConfig = BValidate.globalConfig;
+    const options = {
+      ...globalConfig,
+      ..._options,
+      validateMessages: mergeTemplate(globalConfig.validateMessages, _options.validateMessages),
+    };
     this.string = new StringValidator(obj, options);
     this.number = new NumberValidator(obj, options);
     this.array = new ArrayValidator(obj, options);
@@ -28,10 +53,6 @@ class Validate {
   }
 }
 
-export default (obj: any, options: ValidateOptions) => {
-  return new Validate(obj, options);
-};
-
 export class Schema {
   schema: SchemaType;
   options: ValidateOptions;
@@ -39,6 +60,14 @@ export class Schema {
   constructor(schema: SchemaType, options: ValidateOptions = {}) {
     this.schema = schema;
     this.options = options;
+  }
+
+  // 更新校验信息
+  messages(validateMessages: ValidateMessagesType) {
+    this.options = {
+      ...this.options,
+      validateMessages: mergeTemplate(this.options.validateMessages, validateMessages),
+    };
   }
 
   validate(values: { [key: string]: any }, callback) {
@@ -65,7 +94,19 @@ export class Schema {
             if (!type && !rule.validator) {
               throw `You must specify a type to field ${key}!`;
             }
-            let validator: Validate = new Validate(values[key], { ...this.options, message, field: key });
+            const _options = {
+              ...this.options,
+              message,
+              field: key,
+            };
+            if ('ignoreEmptyString' in rule) {
+              _options.ignoreEmptyString = rule.ignoreEmptyString;
+            }
+            if ('strict' in rule) {
+              _options.strict = rule.strict;
+            }
+
+            let validator: Validate = new Validate(values[key], _options);
             let bv = validator.type[type as keyof TypeValidator] || null;
             if (!bv) {
               if (rule.validator) {
@@ -131,3 +172,5 @@ export {
 } from './interface';
 
 export { default as DefaultValidateMessage } from './message';
+
+export default BValidate;

@@ -1,12 +1,25 @@
-import buble from 'rollup-plugin-buble';
-import typescript from '@rollup/plugin-typescript';
+const buble = require('@rollup/plugin-buble');
+const typescript = require('@rollup/plugin-typescript');
 
 const isDist = process.env.BUILD_TYPE === 'dist';
 
-const config = {
-  input: './src/index.ts',
-  output: isDist
-    ? [
+const plugins = [
+  typescript({
+    compilerOptions: isDist
+      ? {}
+      : {
+          module: 'esnext',
+          declaration: true,
+          outDir: 'es',
+        },
+  }),
+  buble({ objectAssign: true }),
+];
+
+module.exports = isDist
+  ? {
+      input: './src/index.ts',
+      output: [
         {
           file: './dist/b-validate.es.js',
           format: 'es',
@@ -15,29 +28,25 @@ const config = {
           file: './dist/b-validate.cjs.js',
           format: 'cjs',
         },
-      ]
-    : [
+      ],
+      plugins,
+    }
+  : [
+      {
+        input: './src/index.ts',
+      },
+      {
+        input: './src/locale/zh-CN.ts',
+      },
+    ].map((x) => ({
+      ...x,
+      output: [
         {
-          dir: 'es',
-          format: 'es',
+          dir: 'es/',
+          format: 'esm',
+          preserveModules: true,
+          preserveModulesRoot: 'src',
         },
       ],
-  // output: {
-  //   // file: './dist/b-validate.es.js',
-  //   // format: 'es',
-  // },
-  plugins: [
-    typescript({
-      compilerOptions: isDist
-        ? {}
-        : {
-            module: 'esnext',
-            declaration: true,
-            outDir: 'es',
-          },
-    }),
-    buble({ objectAssign: true }),
-  ],
-};
-
-export default config;
+      plugins,
+    }));

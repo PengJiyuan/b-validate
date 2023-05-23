@@ -12,7 +12,10 @@ class CustomValidator extends Base {
   // @ts-ignore
   get validate() {
     const _this = this;
-    return function (validator: CustomValidatorType, callback?: (message?: ValidatorError | null) => void) {
+    return function (
+      validator: CustomValidatorType,
+      callback?: (message?: ValidatorError | null) => void
+    ) {
       let ret;
       if (validator) {
         ret = validator(_this.obj, _this.addError.bind(_this));
@@ -38,4 +41,3 @@ class CustomValidator extends Base {
 }
 
 export default CustomValidator;
-
