@@ -1,4 +1,9 @@
-import { ValidatorError, ValidateOptions, InnerValidateOptions, ValidateMessagesType } from './../interface';
+import {
+  ValidatorError,
+  ValidateOptions,
+  InnerValidateOptions,
+  ValidateMessagesTemplateType,
+} from './../interface';
 import { isObject, isString, isEmptyValue, isFunction, isEmptyArray, isArray } from '../is';
 import { getTemplate, mergeTemplate } from '../util';
 import validateMessages from '../message';
@@ -15,7 +20,7 @@ class Base {
   type: ValidateOptions['type'];
   error: null | ValidatorError;
   _not?: boolean;
-  validateMessages: ValidateMessagesType;
+  validateMessages: ValidateMessagesTemplateType;
   field?: string;
 
   constructor(obj: any, options: InnerValidateOptions) {
@@ -45,7 +50,9 @@ class Base {
         value: this.obj,
         type: this.type,
         requiredError: true,
-        message: this.message || (isObject(message) ? message : `${this._not ? '[NOT MODE]:' : ''}${message}`),
+        message:
+          this.message ||
+          (isObject(message) ? message : `${this._not ? '[NOT MODE]:' : ''}${message}`),
       };
     }
     return this;
@@ -60,7 +67,9 @@ class Base {
       this.error = {
         value: this.obj,
         type: this.type,
-        message: this.message || (isObject(message) ? message : `${this._not ? '[NOT MODE]:' : ''}${message}`),
+        message:
+          this.message ||
+          (isObject(message) ? message : `${this._not ? '[NOT MODE]:' : ''}${message}`),
       };
     }
   }

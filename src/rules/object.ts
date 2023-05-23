@@ -6,16 +6,21 @@ class ObjectValidator extends Base {
   constructor(obj: any, options: InnerValidateOptions) {
     super(obj, {
       ...options,
-      type: 'object'
+      type: 'object',
     });
-    this.validate(options && options.strict ? isObject(this.obj) : true, this.getValidateMsg('type.object'));
+    this.validate(
+      options && options.strict ? isObject(this.obj) : true,
+      this.getValidateMsg('type.object')
+    );
   }
 
   deepEqual(other: any) {
-    return this.obj ? this.validate(
-      isEqual(this.obj, other),
-      this.getValidateMsg('object.deepEqual',  {deepEqual: other})
-    ) : this;
+    return this.obj
+      ? this.validate(
+          isEqual(this.obj, other),
+          this.getValidateMsg('object.deepEqual', { deepEqual: other })
+        )
+      : this;
   }
 
   hasKeys(keys: string[]) {

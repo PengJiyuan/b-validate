@@ -8,7 +8,10 @@ class NumberValidator extends Base {
       ...options,
       type: 'number',
     });
-    this.validate(options && options.strict ? isNumber(this.obj) : true, this.getValidateMsg('type.number'));
+    this.validate(
+      options && options.strict ? isNumber(this.obj) : true,
+      this.getValidateMsg('type.number')
+    );
   }
 
   min(num: number) {
@@ -31,16 +34,23 @@ class NumberValidator extends Base {
 
   range(min: number, max: number) {
     return !isEmptyValue(this.obj)
-      ? this.validate(this.obj >= min && this.obj <= max, this.getValidateMsg('number.range', { min, max }))
+      ? this.validate(
+          this.obj >= min && this.obj <= max,
+          this.getValidateMsg('number.range', { min, max })
+        )
       : this;
   }
 
   get positive(): NumberValidator {
-    return !isEmptyValue(this.obj) ? this.validate(this.obj > 0, this.getValidateMsg('number.positive')) : this;
+    return !isEmptyValue(this.obj)
+      ? this.validate(this.obj > 0, this.getValidateMsg('number.positive'))
+      : this;
   }
 
   get negative(): NumberValidator {
-    return !isEmptyValue(this.obj) ? this.validate(this.obj < 0, this.getValidateMsg('number.negative')) : this;
+    return !isEmptyValue(this.obj)
+      ? this.validate(this.obj < 0, this.getValidateMsg('number.negative'))
+      : this;
   }
 }
 

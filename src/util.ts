@@ -1,28 +1,28 @@
 import { isObject } from './is';
 import { ValidateMessagesType, ValidateMessagesTemplateType } from './interface';
 
-export const mergeTemplate = (
-  defaultValidateMessages: ValidateMessagesTemplateType,
+export const mergeTemplate = <T = ValidateMessagesType>(
+  defaultValidateMessages: T,
   validateMessages: ValidateMessagesType
-): ValidateMessagesType => {
-  const result = {};
+): T => {
+  const result = { ...defaultValidateMessages };
 
-  Object.keys(defaultValidateMessages).forEach((key) => {
-    const defaultValue = defaultValidateMessages[key];
-    const propsValue = validateMessages && validateMessages[key];
+  Object.keys(validateMessages || {}).forEach((key) => {
+    const defaultValue = result[key];
+    const newValue = validateMessages?.[key];
 
     result[key] = isObject(defaultValue)
       ? {
           ...defaultValue,
-          ...propsValue,
+          ...newValue,
         }
-      : propsValue || defaultValue;
+      : newValue || defaultValue;
   });
 
   return result;
 };
 
-export const getTemplate = (validateMessages: ValidateMessagesType, keyPath: string) => {
+export const getTemplate = (validateMessages: ValidateMessagesTemplateType, keyPath: string) => {
   const keys = keyPath.split('.');
 
   let result = validateMessages;
