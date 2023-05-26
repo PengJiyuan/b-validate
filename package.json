@@ -4,8 +4,9 @@
   "description": "Javascript type validate",
   "main": "./dist/b-validate.cjs.js",
   "module": "./es/index.js",
-  "types": "./es/index.d.ts",
+  "types": "./es",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "dev-cjs": "rollup -c -f cjs -o ./dist/b-validate.cjs.js -w",
     "dev-es": "rollup -c -w",
     "build:es": "rm -rf es/* && BUILD_TYPE=es rollup -c",
