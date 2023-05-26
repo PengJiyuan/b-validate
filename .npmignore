@@ -5,3 +5,5 @@ jest.config.js
 src/
 tests/
 .travis.yml
+.eslintrc
+

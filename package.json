@@ -1,17 +1,17 @@
 {
   "name": "b-validate",
-  "version": "1.5.0",
+  "version": "1.5.2",
   "description": "Javascript type validate",
   "main": "./dist/b-validate.cjs.js",
   "module": "./es/index.js",
   "types": "./es",
   "scripts": {
-    "prepublishOnly": "npm run build",
+    "prepublishOnly": "npm run test && npm run build ",
     "dev-cjs": "rollup -c -f cjs -o ./dist/b-validate.cjs.js -w",
     "dev-es": "rollup -c -w",
     "build:es": "rm -rf es/* && BUILD_TYPE=es rollup -c",
     "build:dist": "rm -rf dist/*  && BUILD_TYPE=dist rollup -c ",
-    "build": "npm run build:es & npm run build:dist ",
+    "build": "npm run build:es && npm run build:dist ",
     "test": "npm run build:es && jest"
   },
   "repository": {
