@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 1.5.3 (2023-08-02)
+
+- fix(ValidateMessagesType) ts definition
+
 ## 1.5.0 (2023-05-23)
 
 - supports `setGlobalConfig`

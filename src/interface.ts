@@ -5,7 +5,7 @@ export type ValidateMessagesTemplateType = typeof ValidateMessages;
 export type ValidateMessagesType = Partial<{
   [key in keyof ValidateMessagesTemplateType]: ValidateMessagesTemplateType[key] extends string
     ? ValidateMessagesTemplateType[key]
-    : Record<keyof ValidateMessagesTemplateType[key], (info) => any | string>;
+    : Record<keyof ValidateMessagesTemplateType[key], string | ((info) => any)>;
 }>;
 
 export type RuleType =
