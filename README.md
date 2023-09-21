@@ -232,11 +232,41 @@ Is it a positive number?
 
 Is it a negative number?
 
+
 #### Demo
 
 ```js
 bv(123).number.min(2).max(250).positive.end; // pass
 ```
+
+
+### Boolean
+
+#### .true()
+
+Equal `true` 
+
+#### .false()
+
+Equal `false` 
+
+
+#### Demo
+
+```js
+bv(123).boolean.true().end; // failed
+
+// or schema
+const schema = new Schema({
+  name: [{ type: 'boolean', true: true }]
+});
+
+schema.validate({ name: false }, errors => {
+  console.log(errors);
+  // {name: { message: 'muse be true' }}
+})
+```
+
 
 ### Array
 
